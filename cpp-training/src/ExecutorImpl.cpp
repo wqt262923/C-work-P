@@ -10,38 +10,67 @@ ExecutorImpl::ExecutorImpl(const Pose& pose) noexcept : pose(pose)
 }
 void ExecutorImpl::Execute(const std::string& commands) noexcept
 {
-     for (char command : commands) 
-     {
-        switch (command) 
+    for (const auto cmd : commands) 
+    {
+        if (cmd == 'M') 
         {
-            case 'M': // 前进指令
-                switch (pose.heading) 
-                {
-                    case 'E': pose.x += 1; break; // 向东移动
-                    case 'W': pose.x -= 1; break; // 向西移动  
-                    case 'N': pose.y += 1; break; // 向北移动
-                    case 'S': pose.y -= 1; break; // 向南移动
-                }
-                break;
-            case 'L': // 左转指令
-                switch (pose.heading) 
-                {
-                    case 'E': pose.heading = 'N'; break;
-                    case 'N': pose.heading = 'W'; break;
-                    case 'W': pose.heading = 'S'; break;
-                    case 'S': pose.heading = 'E'; break;
-                }
-                break;
-            case 'R': //右转指令
-                switch (pose.heading) 
-                {
-                    case 'E': pose.heading = 'S'; break;
-                    case 'S': pose.heading = 'W'; break;
-                    case 'W': pose.heading = 'N'; break;
-                    case 'N': pose.heading = 'E'; break;
-                }
-                break;
+            Move();
+        } 
+        else if (cmd == 'L') 
+        {
+            TurnLeft();
+        } 
+        else if (cmd == 'R') 
+        {
+            TurnRight();
         }
+    }
+
+    
+}
+void ExecutorImpl::Move()noexcept
+{
+    if (pose.heading == 'E') {
+        ++pose.x;
+    } 
+    else if (pose.heading == 'W') {
+        --pose.x;
+    } 
+    else if (pose.heading == 'N') {
+        ++pose.y;
+    } 
+    else if (pose.heading == 'S') {
+        --pose.y;
+    }
+}
+void ExecutorImpl::TurnLeft()noexcept
+{
+    if (pose.heading == 'E') {
+        pose.heading = 'N';
+    } 
+    else if (pose.heading == 'N') {
+        pose.heading = 'W';
+    } 
+    else if (pose.heading == 'W') {
+        pose.heading = 'S';
+    } 
+    else if (pose.heading == 'S') {
+        pose.heading = 'E';
+    }
+}
+void ExecutorImpl::TurnRight()noexcept
+{
+    if (pose.heading == 'E') {
+        pose.heading = 'S';
+    } 
+    else if (pose.heading == 'S') {
+        pose.heading = 'W';
+    } 
+    else if (pose.heading == 'W') {
+        pose.heading = 'N';
+    } 
+    else if (pose.heading == 'N') {
+        pose.heading = 'E';
     }
 }
 Pose ExecutorImpl::Query() const noexcept

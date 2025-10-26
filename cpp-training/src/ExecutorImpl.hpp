@@ -13,6 +13,9 @@ namespace adas
         void Execute(const std::string& command) noexcept override;
         Pose Query(void) const noexcept override;
     private:
+        void Move(void) noexcept;
+        void TurnRight(void) noexcept;
+        void TurnLeft(void) noexcept;
         Pose pose;
 };
 } // namespace adas
