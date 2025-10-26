@@ -13,26 +13,35 @@ namespace adas
         void Execute(const std::string& command) noexcept override;
         Pose Query(void) const noexcept override;
     private:
-        class MoveCommand final
+         class ICommand
         {
         public:
-            void DoOperate(ExecutorImpl& executor) const noexcept
+            virtual ~ICommand() = default;
+            virtual void DoOperate(ExecutorImpl& executor) const noexcept = 0;
+        };
+        //move指令
+        class MoveCommand final : public ICommand
+        {
+        public:
+            void DoOperate(ExecutorImpl& executor) const noexcept override
             {
                 executor.Move();
             }
         };
-        class TurnLeftCommand final
+        //左转指令
+        class TurnLeftCommand final : public ICommand
         {
         public:
-            void DoOperate(ExecutorImpl& executor) const noexcept
+            void DoOperate(ExecutorImpl& executor) const noexcept override
             {
                 executor.TurnLeft();
             }
         };
-        class TurnRightCommand final
+        //右转指令
+        class TurnRightCommand final : public ICommand
         {
         public:
-            void DoOperate(ExecutorImpl& executor) const noexcept
+            void DoOperate(ExecutorImpl& executor) const noexcept override
             {
                 executor.TurnRight();
             }
