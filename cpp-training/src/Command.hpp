@@ -1,25 +1,13 @@
 #pragma once
-#include "Executor.hpp"
-
+#include "ExecutorImpl.hpp"
 namespace adas
 {
-    class ExecutorImpl final : public Executor
+    class ICommand
     {
     public:
-        explicit ExecutorImpl(const Pose& pose) noexcept;
-        ~ExecutorImpl() noexcept = default;
-        ExecutorImpl(const ExecutorImpl&) = delete;
-        ExecutorImpl& operator=(const ExecutorImpl&) = delete;
-    public:
-        void Execute(const std::string& command) noexcept override;
-        Pose Query(void) const noexcept override;
-    private:
-         class ICommand
-        {
-        public:
-            virtual ~ICommand() = default;
-            virtual void DoOperate(ExecutorImpl& executor) const noexcept = 0;
-        };
+        virtual ~ICommand() = default;
+        virtual void DoOperate(ExecutorImpl& executor) const noexcept = 0;
+    };
         //move指令
         class MoveCommand final : public ICommand
         {
@@ -65,24 +53,5 @@ namespace adas
                 executor.Fast();
             }
         };
-    public:
-        void Move(void) noexcept;
-        void TurnRight(void) noexcept;
-        void TurnLeft(void) noexcept;
-        void Fast(void) noexcept;
-        bool IsFast(void) const noexcept;
-    private:
-        Pose pose;
-        bool fast{false};
-    };
+};
 
-void ExecutorImpl::Fast() noexcept
-{
-fast = !fast;
-}
-bool ExecutorImpl::IsFast() const noexcept
-{
-return fast;
-}
-
-} // namespace adas
