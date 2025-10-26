@@ -1,13 +1,14 @@
 #include <gtest/gtest.h>   
 #include <memory>        
-#include <tuple>
+//#include <tuple>
 #include "Executor.hpp"
+#include "PoseEq.hpp"
 namespace adas
 {
-    bool operator==(const Pose& lhs, const Pose& rhs) 
-    {   
-        return std::tie(lhs.x, lhs.y, lhs.heading) == std::tie(rhs.x, rhs.y, rhs.heading); 
-    }
+    //bool operator==(const Pose& lhs, const Pose& rhs) 
+    //{   
+    //    return std::tie(lhs.x, lhs.y, lhs.heading) == std::tie(rhs.x, rhs.y, rhs.heading); 
+    //}
    TEST(ExecutorTest, should_return_x_plus_1_given_command_is_M_and_facing_is_E)
     {
         // given

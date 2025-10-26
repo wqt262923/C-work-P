@@ -49,6 +49,19 @@ namespace adas
         void Move(void) noexcept;
         void TurnRight(void) noexcept;
         void TurnLeft(void) noexcept;
+        void Fast(void) noexcept;
+        bool IsFast(void) const noexcept;
+    private:
         Pose pose;
+        bool fast{false};
 };
+void ExecutorImpl::Fast() noexcept
+{
+fast = !fast;
+}
+bool ExecutorImpl::IsFast() const noexcept
+{
+return fast;
+}
+
 } // namespace adas
