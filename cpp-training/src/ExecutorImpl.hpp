@@ -3,7 +3,7 @@
 namespace adas
 {
     class ExecutorImpl final : public Executor
-{
+    {
     public:
         explicit ExecutorImpl(const Pose& pose) noexcept;
         ~ExecutorImpl() noexcept = default;
@@ -25,6 +25,9 @@ namespace adas
         public:
             void DoOperate(ExecutorImpl& executor) const noexcept override
             {
+                if (executor.IsFast()) {
+                executor.Move();
+                }
                 executor.Move();
             }
         };
@@ -34,6 +37,9 @@ namespace adas
         public:
             void DoOperate(ExecutorImpl& executor) const noexcept override
             {
+                if (executor.IsFast()) {
+                executor.Move();
+                }
                 executor.TurnLeft();
             }
         };
@@ -43,7 +49,19 @@ namespace adas
         public:
             void DoOperate(ExecutorImpl& executor) const noexcept override
             {
+                if (executor.IsFast()) {
+                executor.Move();
+                }
                 executor.TurnRight();
+            }
+        };
+        //F指令功能代码实现：FastCommand类建立
+        class FastCommand final : public ICommand
+        {
+        public:
+             void DoOperate(ExecutorImpl& executor) const noexcept override
+            {
+                executor.Fast();
             }
         };
         void Move(void) noexcept;
@@ -54,7 +72,8 @@ namespace adas
     private:
         Pose pose;
         bool fast{false};
-};
+    };
+
 void ExecutorImpl::Fast() noexcept
 {
 fast = !fast;
