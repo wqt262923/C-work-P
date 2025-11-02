@@ -1,59 +1,84 @@
 #pragma once
+#include <functional>
 #include "ExecutorImpl.hpp"
 #include "PoseHandler.hpp"
 
 namespace adas
 {
-    class ICommand
-    {
-    public:
-        virtual ~ICommand() = default;
-        virtual void DoOperate(PoseHandler& poseHandler) const noexcept = 0;
-    };
+    // class ICommand
+    // {
+    // public:
+    //     virtual ~ICommand() = default;
+    //     virtual void DoOperate(PoseHandler& poseHandler) const noexcept = 0;
+    // };
         //move指令
-        class MoveCommand final : public ICommand
+        class MoveCommand final //: public ICommand
         {
         public:
-            void DoOperate(PoseHandler& poseHandler) const noexcept override
-            {
-                if (poseHandler.IsFast()) {
+            // void DoOperate(PoseHandler& poseHandler) const noexcept override
+            // {
+            //     if (poseHandler.IsFast()) {
+            //         poseHandler.Move();
+            //     }
+            //     poseHandler.Move();
+            // }
+            const std::function<void(PoseHandler& poseHandler)> operate = [](PoseHandler& poseHandler) noexcept {
+                if (poseHandler.IsFast())
+                {
                     poseHandler.Move();
                 }
                 poseHandler.Move();
-            }
+            };
         };
         //左转指令
-        class TurnLeftCommand final : public ICommand
+        class TurnLeftCommand final //: public ICommand
         {
         public:
-            void DoOperate(PoseHandler& poseHandler) const noexcept override
-            {
-                if (poseHandler.IsFast()) {
+            // void DoOperate(PoseHandler& poseHandler) const noexcept override
+            // {
+            //     if (poseHandler.IsFast()) {
+            //         poseHandler.Move();
+            //     }
+            //     poseHandler.TurnLeft();
+            // }
+            const std::function<void(PoseHandler& poseHandler)> operate = [](PoseHandler& poseHandler) noexcept {
+                if (poseHandler.IsFast())
+                {
                     poseHandler.Move();
                 }
                 poseHandler.TurnLeft();
-            }
+            };
         };
         //右转指令
-        class TurnRightCommand final : public ICommand
+        class TurnRightCommand final //: public ICommand
         {
         public:
-            void DoOperate(PoseHandler& poseHandler) const noexcept override
-            {
-                if (poseHandler.IsFast()) {
+            // void DoOperate(PoseHandler& poseHandler) const noexcept override
+            // {
+            //     if (poseHandler.IsFast()) {
+            //         poseHandler.Move();
+            //     }
+            //     poseHandler.TurnRight();
+            // }
+            const std::function<void(PoseHandler& poseHandler)> operate = [](PoseHandler& poseHandler) noexcept {
+                if (poseHandler.IsFast())
+                {
                     poseHandler.Move();
                 }
                 poseHandler.TurnRight();
-            }
+            };
         };
         //F指令功能代码实现：FastCommand类建立
-        class FastCommand final : public ICommand
+        class FastCommand final //: public ICommand
         {
         public:
-            void DoOperate(PoseHandler& poseHandler) const noexcept override
-            {
-                 poseHandler.Fast();
-            }
+            // void DoOperate(PoseHandler& poseHandler) const noexcept override
+            // {
+            //      poseHandler.Fast();
+            // }
+            const std::function<void(PoseHandler& poseHandler)> operate = [](PoseHandler& poseHandler) noexcept {
+                poseHandler.Fast();
+            };
         };
 };
 
