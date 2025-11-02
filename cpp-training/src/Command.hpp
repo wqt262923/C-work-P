@@ -1,56 +1,58 @@
 #pragma once
 #include "ExecutorImpl.hpp"
+#include "PoseHandler.hpp"
+
 namespace adas
 {
     class ICommand
     {
     public:
         virtual ~ICommand() = default;
-        virtual void DoOperate(ExecutorImpl& executor) const noexcept = 0;
+        virtual void DoOperate(PoseHandler& poseHandler) const noexcept = 0;
     };
         //move指令
         class MoveCommand final : public ICommand
         {
         public:
-            void DoOperate(ExecutorImpl& executor) const noexcept override
+            void DoOperate(PoseHandler& poseHandler) const noexcept override
             {
-                if (executor.IsFast()) {
-                executor.Move();
+                if (poseHandler.IsFast()) {
+                    poseHandler.Move();
                 }
-                executor.Move();
+                poseHandler.Move();
             }
         };
         //左转指令
         class TurnLeftCommand final : public ICommand
         {
         public:
-            void DoOperate(ExecutorImpl& executor) const noexcept override
+            void DoOperate(PoseHandler& poseHandler) const noexcept override
             {
-                if (executor.IsFast()) {
-                executor.Move();
+                if (poseHandler.IsFast()) {
+                    poseHandler.Move();
                 }
-                executor.TurnLeft();
+                poseHandler.TurnLeft();
             }
         };
         //右转指令
         class TurnRightCommand final : public ICommand
         {
         public:
-            void DoOperate(ExecutorImpl& executor) const noexcept override
+            void DoOperate(PoseHandler& poseHandler) const noexcept override
             {
-                if (executor.IsFast()) {
-                executor.Move();
+                if (poseHandler.IsFast()) {
+                    poseHandler.Move();
                 }
-                executor.TurnRight();
+                poseHandler.TurnRight();
             }
         };
         //F指令功能代码实现：FastCommand类建立
         class FastCommand final : public ICommand
         {
         public:
-             void DoOperate(ExecutorImpl& executor) const noexcept override
+            void DoOperate(PoseHandler& poseHandler) const noexcept override
             {
-                executor.Fast();
+                 poseHandler.Fast();
             }
         };
 };
