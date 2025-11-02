@@ -22,13 +22,14 @@ namespace adas
             //     }
             //     poseHandler.Move();
             // }
-            const std::function<void(PoseHandler& poseHandler)> operate = [](PoseHandler& poseHandler) noexcept {
+            void operator()(PoseHandler& poseHandler) const noexcept
+            {
                 if (poseHandler.IsFast())
                 {
                     poseHandler.Move();
                 }
                 poseHandler.Move();
-            };
+            }
         };
         //左转指令
         class TurnLeftCommand final //: public ICommand
@@ -41,13 +42,14 @@ namespace adas
             //     }
             //     poseHandler.TurnLeft();
             // }
-            const std::function<void(PoseHandler& poseHandler)> operate = [](PoseHandler& poseHandler) noexcept {
+            void operator()(PoseHandler& poseHandler) const noexcept
+            {
                 if (poseHandler.IsFast())
                 {
                     poseHandler.Move();
                 }
                 poseHandler.TurnLeft();
-            };
+            }
         };
         //右转指令
         class TurnRightCommand final //: public ICommand
@@ -60,13 +62,14 @@ namespace adas
             //     }
             //     poseHandler.TurnRight();
             // }
-            const std::function<void(PoseHandler& poseHandler)> operate = [](PoseHandler& poseHandler) noexcept {
+            void operator()(PoseHandler& poseHandler) const noexcept
+            {
                 if (poseHandler.IsFast())
                 {
                     poseHandler.Move();
                 }
                 poseHandler.TurnRight();
-            };
+            }
         };
         //F指令功能代码实现：FastCommand类建立
         class FastCommand final //: public ICommand
@@ -76,9 +79,10 @@ namespace adas
             // {
             //      poseHandler.Fast();
             // }
-            const std::function<void(PoseHandler& poseHandler)> operate = [](PoseHandler& poseHandler) noexcept {
+            void operator()(PoseHandler& poseHandler) const noexcept
+            {
                 poseHandler.Fast();
-            };
+            }
         };
 };
 
