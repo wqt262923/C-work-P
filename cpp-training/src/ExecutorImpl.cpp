@@ -31,8 +31,9 @@ void ExecutorImpl::Execute(const std::string& commands) noexcept
         {'L', TurnLeftCommand()},
         {'R', TurnRightCommand()},
         {'F', FastCommand()},
+        {'B',ReverseCommand()},
     };
-    
+
     for (const auto cmd : commands)
     {
         const auto it = cmderMap.find(cmd);

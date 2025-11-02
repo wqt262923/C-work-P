@@ -24,11 +24,20 @@ namespace adas
             // }
             void operator()(PoseHandler& poseHandler) const noexcept
             {
-                if (poseHandler.IsFast())
-                {
-                    poseHandler.Move();
+                if (poseHandler.IsFast()){
+                    if (poseHandler.IsReverse()) {
+                        poseHandler.Backward();
+                    }
+                    else{
+                        poseHandler.Forward();
+                    }
                 }
-                poseHandler.Move();
+                if (poseHandler.IsReverse()) {
+                    poseHandler.Backward();
+                }
+                else {
+                    poseHandler.Forward();
+                }
             }
         };
         //左转指令
@@ -44,11 +53,19 @@ namespace adas
             // }
             void operator()(PoseHandler& poseHandler) const noexcept
             {
-                if (poseHandler.IsFast())
-                {
-                    poseHandler.Move();
+                if (poseHandler.IsFast()){
+                    if (poseHandler.IsReverse()){
+                        poseHandler.Backward();}
+                    else{
+                        poseHandler.Forward();
+                    }
                 }
-                poseHandler.TurnLeft();
+                if (poseHandler.IsReverse()){
+                    poseHandler.TurnRight();
+                }
+                else{
+                    poseHandler.TurnLeft();
+                }
             }
         };
         //右转指令
@@ -64,11 +81,18 @@ namespace adas
             // }
             void operator()(PoseHandler& poseHandler) const noexcept
             {
-                if (poseHandler.IsFast())
-                {
-                    poseHandler.Move();
+                if (poseHandler.IsFast()) {
+                    if (poseHandler.IsReverse()) {
+                        poseHandler.Backward();
+                    } else {
+                        poseHandler.Forward();
+                    }
                 }
-                poseHandler.TurnRight();
+                if (poseHandler.IsReverse()) {
+                    poseHandler.TurnLeft();
+                } else {
+                    poseHandler.TurnRight();
+                }
             }
         };
         //F指令功能代码实现：FastCommand类建立
@@ -82,6 +106,15 @@ namespace adas
             void operator()(PoseHandler& poseHandler) const noexcept
             {
                 poseHandler.Fast();
+            }
+        };
+        //B指令实现
+        class ReverseCommand final
+        {
+        public:
+            void operator()(PoseHandler& poseHandler) const noexcept
+            {
+                poseHandler.Reverse();
             }
         };
 };
